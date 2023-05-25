@@ -1,4 +1,4 @@
-# Advbench
+# RobTest
 
 Code and data of the ACL 2023 paper **"From Adversarial Arms Race to Model-centric Evaluation Motivating a Unified Automatic Robustness Evaluation Framework"**.
 
@@ -17,7 +17,7 @@ Maybe you need to change the version of some libraries depending on your servers
 Then unzip dependency pakage:
 
 ```
-cd RobTest-Demo
+cd RobTest
 unzip naacl2019-like-humans-visual-attacks.zip
 ```
 
@@ -78,7 +78,7 @@ python robtest.py --mode score --attacker typo --data agnews  --dis_type char --
 - data: dataset name
 - choice: 
 - victim_model: name of victim model
-- cal_method: ave, worst, both
+- cal_method: average, worst, both
 - aug_num: the augmentation number for each sentence
 
 
