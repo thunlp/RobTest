@@ -37,7 +37,7 @@ Then you need to write code for the data and model input interface.
 
 For the models, there is two example:
 
-```
+```python
 def load_jigsaw_model():
     evaluated_model = torch.load("jigsaw-roberta-large",map_location=torch.device('cpu'))
     tokenizer = AutoTokenizer.from_pretrained('roberta-large')
@@ -51,7 +51,7 @@ def load_agnews_model():
 ```
 
 for the datasets, there is an example:
-```
+```python
 def read_jigsaw(base_path):
     def read_data(file_path):
         data = pd.read_csv(file_path).values.tolist()
