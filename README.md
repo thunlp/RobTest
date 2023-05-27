@@ -1,6 +1,6 @@
 # RobTest
 
-Code and data of the ACL 2023 paper **"From Adversarial Arms Race to Model-centric Evaluation Motivating a Unified Automatic Robustness Evaluation Framework"**.
+Code and data of the Findings of ACL 2023 paper **"From Adversarial Arms Race to Model-centric Evaluation Motivating a Unified Automatic Robustness Evaluation Framework"**.
 
 ## Overview
 
