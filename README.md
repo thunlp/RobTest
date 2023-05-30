@@ -173,7 +173,7 @@ Considering the significant distinctions among different models and datasets, we
 
 OpenAttack has 6 main modules: 
 
-<img src="figures/toolkit.png" alt="toolkit_framework" style="zoom:40%;" />
+<img src="figures/toolkit.png" alt="toolkit_framework" style="zoom:20%;" />
 
 * **Access Information**: according to the access information, we set up three evaluation modes: (1) rule-based, which only obtains the model's classification labels; (2) score-based, which can obtain the model's classification probabilities; and (3) gradient-based, which can obtain the model's gradient information;
 * **Attacker**: 8 demension transformations in char-level, word-level, and sentence-level granularity;
