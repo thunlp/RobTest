@@ -72,7 +72,7 @@ python src/robtest.py --mode score --attacker typo --data sst2 --dis_type char -
 - victim_model: name of victim model
 - aug_num: the augmentation number for each sentence
 
-**<span style="color:red">We will keep updating and  supplementing current document</span>**
+**<font color="red">We will keep updating and  supplementing current document</font>**
 
 <details>
 <summary><strong>Bult-in Dataset and Models</strong></summary>
