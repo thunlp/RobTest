@@ -20,7 +20,7 @@ RobTest is an open-source Python-based textual robustness evaluation toolkit, wh
 
 ⭐️ **Extensibility**.  RobTest can evaluate any customized <u>victim model</u> on customized <u>dataset</u>.
 
-⭐️ **Compatibility with 🤗 Hugging Face**. RobTest is fully integrated with 🤗 [Transformers](https://github.com/huggingface/transformers) and [Datasets](https://github.com/huggingface/datasets) libraries;
+⭐️ **Compatibility with 🤗 Hugging Face**. RobTest is fully integrated with [Transformers](https://github.com/huggingface/transformers) and [Datasets](https://github.com/huggingface/datasets) libraries;
 
 
 ## Installation
