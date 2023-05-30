@@ -1,5 +1,3 @@
-
-# from .Char.phonetic_transform import PhoneticTransform
 from .Char.typo_transform import TypoTransform
 from .Char.glyph_transform import GlyphTransform
 from .Char.natural_transform import NaturalTransform
@@ -11,14 +9,14 @@ from .Word.inflection_transform import InflectionTransform
 
 
 transformer_dict = {
-    "inflect": InflectionTransform,
     "typo": TypoTransform,
     "glyph": GlyphTransform,
     "natural": NaturalTransform,
     "phonetic": PhoneticTransform,
     "synonym": SynonymTransform,
     "contextual": ContextualTransform,
-    "distraction": DistractionTransform
+    "distraction": DistractionTransform, 
+    "inflect": InflectionTransform
 }
 
 

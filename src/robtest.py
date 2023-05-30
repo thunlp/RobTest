@@ -2,7 +2,7 @@ from copy import deepcopy
 import os
 
 import argparse
-from transformers import AutoModelForSequenceClassification, AutoTokenizer
+from transformers import AutoTokenizer, AutoModelForSequenceClassification
 from datasets import load_dataset
 import os
 # from evaluator import GPT2LM, GrammarChecker, USE
@@ -11,18 +11,21 @@ from tqdm import tqdm
 import torch
 import torch.nn as nn
 from AttackMethod.PackDataset import packDataset_util
-from transformers import AutoModelForSequenceClassification, AutoTokenizer
 from AttackMethod.ModelBased.model_transform import ModelTransform
 import pandas as pd
 import numpy as np
 from random import randint, sample
 import random
 
+def load_model(victim_model,data):
+    tokenizer = AutoTokenizer.from_pretrained(victim_model)
+    if data in ['jigsaw','sst2','agnews']:
+        evaluated_model = AutoModelForSequenceClassification.from_pretrained("-".join([victim_model,data]))
+    else:
+        evaluated_model = AutoModelForSequenceClassification.from_pretrained(victim_model)
+    return tokenizer,evaluated_model
 
-# import nltk
-# nltk.download('averaged_perceptron_tagger')
-
-def read_all_data(base_path):
+def read_sst2(base_path):
     def read_data(file_path):
         data = pd.read_csv(file_path, sep='\t').values.tolist()
         processed_data = []
@@ -31,11 +34,9 @@ def read_all_data(base_path):
         return processed_data
 
     train_path = os.path.join(base_path, 'train.tsv')
-    dev_path = os.path.join(base_path, 'dev.tsv')
     test_path = os.path.join(base_path, 'test.tsv')
-    train, dev, test = read_data(train_path), read_data(dev_path), read_data(test_path)
-    return train, dev, test
-
+    train, test = read_data(train_path), read_data(test_path)
+    return train,test
 
 def read_agnews(base_path):
     def read_data(file_path):
@@ -66,22 +67,7 @@ def read_jigsaw(base_path):
     return train, test
 
 
-def load_evaluated_model(name='textattack/roberta-base-ag-news'):
-    evaluated_model = AutoModelForSequenceClassification.from_pretrained(name)
-    tokenizer = AutoTokenizer.from_pretrained(name)
-    return evaluated_model, tokenizer
 
-
-def load_jigsaw_model():
-    evaluated_model = torch.load("jigsaw-roberta-large", map_location=torch.device('cpu'))
-    tokenizer = AutoTokenizer.from_pretrained('roberta-large')
-    return evaluated_model, tokenizer
-
-
-def load_agnews_model():
-    evaluated_model = torch.load("ag_newsroberta-large", map_location=torch.device('cpu'))
-    tokenizer = AutoTokenizer.from_pretrained('roberta-large')
-    return evaluated_model, tokenizer
 
 
 def attack(sent, victim_model, tokenizer, transformer):
@@ -114,13 +100,13 @@ if __name__ == '__main__':
     parser.add_argument('--searching', default='greedy', choices=['greedy', 'pso'])
     parser.add_argument('--degree', type=float, default=-1)  # range from [0, 1]
     parser.add_argument('--attacker', type=str, default='typo',
-                        choices=['Typo', 'Glyph', 'Phonetic ', 'Synonym', 'Contextual', 'Inflection', 'Syntax', 'Distraction'])
+                        choices=['typo', 'glyph', 'phonetic ', 'synonym', 'contextual', 'inflect', 'syntax', 'distraction'])
     parser.add_argument('--aug_num', type=int, default=100)
     parser.add_argument('--data', default='sst2')
     # parser.add_argument('--size', default='base')
     parser.add_argument('--choice', type=str, default='both', choices=['average', 'worst', 'both'])
     parser.add_argument('--dis_type', default='char')
-    parser.add_argument('--victim_model', default='roberta-large')
+    parser.add_argument('--victim_model', default='roberta-base')
 
     params = parser.parse_args()
     degree_1 = params.degree
@@ -133,29 +119,19 @@ if __name__ == '__main__':
     sent_acc_choice = params.choice
     dis_type = params.dis_type
 
-    base_path = os.path.join('./data', data)
+    base_path = os.path.join('./datasets/', data)
+    data_dict = {'sst2':read_sst2,
+                'jigsaw':read_jigsaw,
+                'agnews':read_agnews}
+    train_dataset, test_dataset = data_dict[data](base_path)
+    print(len(test_dataset))
 
-    #######################################################################
-    if victim_model == 'ag_newsroberta-large':  # custom models
-        evaluated_model, tokenizer = load_agnews_model()
-    elif victim_model == "jigsaw-roberta-large":
-        evaluated_model, tokenizer = load_jigsaw_model()
-    else:
-        evaluated_model, tokenizer = load_evaluated_model(victim_model)
-
-    if data == 'jigsaw':  # costum dataset
-        train_dataset, test_dataset = read_jigsaw(base_path)
-    elif data == "agnews":
-        train_dataset, test_dataset = read_agnews(base_path)
-    else:
-        train_dataset, dev_dataset, test_dataset = read_all_data(base_path)
-    ##########################################################################
 
     random.seed(123)
     test_dataset = sample(test_dataset, 1000)
     test_num = len(test_dataset)
     print(attacker)
-
+    tokenizer,evaluated_model = load_model(victim_model,data)
     evaluated_model = evaluated_model.cuda()
 
     evaluated_model.eval()
@@ -204,18 +180,21 @@ if __name__ == '__main__':
     degrees.append('total score')
     c = {"degree": degrees}
     if sent_acc_choice == "average" or sent_acc_choice == "both":
-        total_score = ave_save[0]
+        total_score = 0
         for i in range(1, len(ave_save)):
-            total_score = 0.5 * total_score + 0.5 * ave_save[i]
+            total_score = 0.5 * total_score + 0.5 * ave_save[len(ave_save)-i]
         ave_save.append(total_score)
         c["average"] = ave_save
     if sent_acc_choice == "worst" or sent_acc_choice == "both":
-        total_score = wst_save[0]
+        total_score = 0
         for i in range(1, len(wst_save)):
-            total_score = 0.5 * total_score + 0.5 * wst_save[i]
+            total_score = 0.5 * total_score + 0.5 * wst_save[len(wst_save)-i]
         wst_save.append(total_score)
         c["worst"] = wst_save
 
     data = DataFrame(c)
     print(data)
-    data.to_csv('./output/' + params.data + "_" + victim_model.split('/')[-1] + "_" + attacker + ".csv", index=False)
+    save_base_path = './output/'
+    if not os.path.exists(save_base_path):
+        os.makedirs(save_base_path)
+    data.to_csv(save_base_path+ params.data + "_" + victim_model.split('/')[-1] + "_" + attacker + ".csv", index=False)

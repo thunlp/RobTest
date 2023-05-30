@@ -28,8 +28,8 @@ from transformers import AutoModelForSequenceClassification, AutoTokenizer
 from evaluator import EditDistance
 
 transformer_dict = {
-    "inflect": InflectionTransform,
     "typo": TypoTransform,
+    "inflect": InflectionTransform,
     "glyph": GlyphTransform,
     "phonetic": PhoneticTransform,
     "synonym": SynonymTransform,

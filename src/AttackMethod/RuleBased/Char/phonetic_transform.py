@@ -9,11 +9,8 @@ import time
 import math
 import torch
 import os
-# name_ = 'sst2'
-phonetic_dict_path = os.path.join('AttackMethod/RuleBased/Char/p_agnews_dict.pt')
 anthro = ANTHRO()
-anthro.load('AttackMethod/RuleBased/Char/anthro/ANTHRO_Data_V1.0')
-candidate_words_dict = torch.load(phonetic_dict_path) if os.path.exists(phonetic_dict_path) else {}
+anthro.load('src/AttackMethod/RuleBased/Char/anthro/ANTHRO_Data_V1.0')
 class PhoneticTransform(RuleTransform):
     def __init__(self, degree, aug_num=1,distance_type="char",ori_sent=""):
         super().__init__(degree, aug_num)
@@ -22,9 +19,7 @@ class PhoneticTransform(RuleTransform):
         self.anthro = anthro
         self.degree = degree
         self.ori_sent = ori_sent
-        # print('loading ANTHRO...')
-        # print('loaded.')
-        self.candidate_words_dict = candidate_words_dict
+
 
 
 

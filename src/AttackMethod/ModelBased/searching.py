@@ -8,7 +8,6 @@ from AttackMethod.PackDataset import packDataset_util
 
 import torch
 import numpy as np
-from text_visualization import plot_text
 # from dataset_IMDB import IMDBPretrainDataset
 from transformers import RobertaTokenizer, RobertaForSequenceClassification
 from transformers import AutoTokenizer, ElectraTokenizerFast

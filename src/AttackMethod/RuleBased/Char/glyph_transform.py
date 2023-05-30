@@ -10,13 +10,13 @@ from sklearn.neighbors import NearestNeighbors
 from sklearn.feature_extraction.text import CountVectorizer
 from .perturbations_store import PerturbationsStorage
 from gensim.models import KeyedVectors as W2Vec               
-model = W2Vec.load_word2vec_format("./naacl2019-like-humans-visual-attacks/VIPER/vce.normalized")
-perturbations_file='./perturbations.txt'
+model = W2Vec.load_word2vec_format("src/naacl2019-like-humans-visual-attacks/VIPER/vce.normalized")
+perturbations_file='src/perturbations.txt'
 perturbations_file = PerturbationsStorage(perturbations_file)
 topn = 20
 
 
-descs = pd.read_csv('./data/NamesList.txt', skiprows=np.arange(16), header=None, names=['code', 'description'])
+descs = pd.read_csv('src/data/NamesList.txt', skiprows=np.arange(16), header=None, names=['code', 'description'])
 descs = descs.dropna(0)
 descs_arr = descs.values # remove the rows after the descriptions
 vectorizer = CountVectorizer(max_features=1000)
