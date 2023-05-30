@@ -12,7 +12,7 @@ RobTest is an open-source Python-based textual robustness evaluation toolkit, wh
 
 ## Features
 
-#### OpenAttack has the following features:
+#### RobTest has the following features:
 
 ⭐️ **Comprehensive**. RobTest supports all types of attacks including character-/word-/sentence-level perturbations and rule-/score-/gradient-based attack models;
 
