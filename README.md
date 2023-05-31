@@ -1,6 +1,6 @@
 # RobTest
 
-Code and data of the Findings of ACL 2023 paper **"From Adversarial Arms Race to Model-centric Evaluation: Motivating a Unified Automatic Robustness Evaluation Framework"**.
+Code and data of the Findings of ACL 2023 paper **"From Adversarial Arms Race to Model-centric Evaluation: Motivating a Unified Automatic Robustness Evaluation Framework"[[pdf]](https://arxiv.org/abs/2305.18503)**.
 
 ## Overview
 
@@ -186,7 +186,7 @@ OpenAttack has 6 main modules:
 
 ## Citation
 
-Please cite our [paper]() if you use this toolkit:
+Please cite our [paper](https://arxiv.org/abs/2305.18503) if you use this toolkit:
 
 ```
 
