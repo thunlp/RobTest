@@ -181,8 +181,8 @@ OpenAttack has 6 main modules:
 * **Attacker**: 8 demension transformations in char-level, word-level, and sentence-level granularity;
 * **Searching Method**: greedy searching for sentence generation, more searching method will be set up;
 * **Metric**: providing several adversarial example quality metrics that can serve as either the constraints on the adversarial examples during attacking or evaluation metrics for evaluating the prediction capability of models;
-* **AttackEval**: evaluating textual adversarial attacks from attack effectiveness, adversarial example quality and attack efficiency;
-* **Dataset**: load and preprocess the dataset in huggingface.
+* **Victim Model**: load model locally or in huggingface;
+* **Dataset**: load and preprocess the dataset locally or in huggingface.
 
 ## Citation
 
