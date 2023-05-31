@@ -8,7 +8,7 @@ Textual adversarial attacks can discover models' weaknesses by adding semantic-p
 
 
 ## Introduction to the Toolkit
-RobTest is an open-source Python-based textual robustness evaluation toolkit, which handles the whole process of textual adversarial attacking, including preprocessing text, accessing the models, generating adversarial examples and evaluation. 
+RobTest is an open-source Python-based textual robustness evaluation toolkit, which handles the whole process of textual model evaluation, including preprocessing text, accessing the models, generating adversarial examples and evaluation. 
 
 ## Features
 
