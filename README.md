@@ -189,5 +189,10 @@ OpenAttack has 6 main modules:
 Please cite our [paper](https://arxiv.org/abs/2305.18503) if you use this toolkit:
 
 ```
-
+@article{chen2023adversarial,
+  title={From Adversarial Arms Race to Model-centric Evaluation: Motivating a Unified Automatic Robustness Evaluation Framework},
+  author={Chen, Yangyi and Gao, Hongcheng and Cui, Ganqu and Yuan, Lifan and Kong, Dehan and Wu, Hanlu and Shi, Ning and Yuan, Bo and Huang, Longtao and Xue, Hui and others},
+  journal={arXiv preprint arXiv:2305.18503},
+  year={2023}
+}
 ```
