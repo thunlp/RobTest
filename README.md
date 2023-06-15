@@ -171,7 +171,7 @@ We include the following dimensions in our framework:
 
 Considering the significant distinctions among different models and datasets, we leave considerable freedom for the skeleton design of models and datasets, and focus more on streamlining the general processing of arobustness test and the common components used in pipeline.
 
-OpenAttack has 6 main modules: 
+RobTest has 6 main modules: 
 <p align="center">
   <img src="figures/toolkit.png" alt="toolkit_framework" style="width:400px; height:180px;" />
 </p>
